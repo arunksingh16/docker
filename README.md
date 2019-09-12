@@ -16,4 +16,9 @@ Steps:
 > docker rm $(docker ps -a -q)
 - Checking logs 
 > docker logs arun
-
+- Docker tagging (To push an image to a private registry and not the central Docker registry you must tag it with the registry hostname)
+> docker tag microservice:v2 arun161087/microservice:v2
+- Before pushing in repository you need to login
+> docker login
+- Docker pushing the image in repository
+> docker push arun161087/microservice:v2
