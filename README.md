@@ -1,14 +1,24 @@
 # docker
 This repository is to just demonstarte a lightweight deployment of microservice on Docker. 
 Steps:
-
+- Prepare the system
+> alias ll='ls -latr'
+- Verify the docker setup 
+> docker info
+- Verify the docker version
+> docker version
+- Help
+> docker help
+- Clone the repository
 > git clone https://github.com/arunksingh16/docker
 - Create docker file 
 - Lets build docker image and tag it
 > docker build . -t microservice:v1
 - List images
 > docker images
-- Running the image as a container in same terminal
+- List process before running container
+> ps aux
+- Running the image as a container in same terminal (foreground)
 > docker run -p 8080:8080 -t microservice:v1
 - Running the image as a container in background and give your easy name
 > docker run -d -p 8085:8080 --name arun microservice:v2
@@ -44,36 +54,29 @@ Steps:
 > docker push arun161087/microservice:v2
 - docker delete containers 
 > docker rm <few unique digits from container id>
+=================================================================================
 - Network
 > docker network ls
 - Container network details
 > docket network inspect bridge
 - N/w Create
 > docker network create nw
-- attch / network connect and disconnect option
-> --network option
+- attach / network connect and disconnect option (--network option)
+- Ex:
+> docker run -it -d  --name my_container  busybox
+- Ping google inside 
+> docker exec -it my_container ping -w3 google.com
+- Inspect the container for network
+> docker inspect my_container
+- Create a network 
+> docker network create –-driver bridge new_nw 
+- running ubuntu in this network 
+> docker run –it –network=new_nw ubuntu:latest /bin/bash
+=================================================================================
 - volume concept
-> docker run mysql --name arundb -d -e MYSQL_ROOT_PASSWORD=TrueGbcaknca, docker inspect <container> | grep -i volume
-- vol
 > docker volume ls
+- Running a apache mounted a volumenr
+> docker run -dit --name arunWeb1 -p 8090:80 -v /root/website/:/usr/local/apache2/htdocs/ httpd:2.4
 - verify the volume on local
-  --------------------------------------
-   docker volume inspect 808d026d9b49d63fa7c1fd90c36183a6726312b58c5b9da118258af4b4f30678
-[
-    {
-        "CreatedAt": "2019-09-14T23:41:16Z",
-        "Driver": "local",
-        "Labels": null,
-        "Mountpoint": "/var/lib/docker/volumes/808d026d9b49d63fa7c1fd90c36183a6726312b58c5b9da118258af4b4f30678/_data",
-        "Name": "808d026d9b49d63fa7c1fd90c36183a6726312b58c5b9da118258af4b4f30678",
-        "Options": null,
-        "Scope": "local"
-    }
-]
-[node1] (local) root@192.168.0.68 ~
-$ ls /var/lib/docker/volumes/808d026d9b49d63fa7c1fd90c36183a6726312b58c5b9da118258af4b4f30678/_data
-#innodb_temp        binlog.000003       client-cert.pem     ib_logfile1         mysql.ibd           server-cert.pem     undo_002
-auto.cnf            binlog.index        client-key.pem      ibdata1             performance_schema  server-key.pem
-binlog.000001       ca-key.pem          ib_buffer_pool      ibtmp1              private_key.pem     sys
-binlog.000002       ca.pem              ib_logfile0         mysql               public_key.pem      undo_001
-[node1] (local) root@192.168.0.68 ~
+> docker volume inspect 808d026d9b49d63fa7c1fd90c36183a6726312b58c5b9da118258af4b4f30678
+
