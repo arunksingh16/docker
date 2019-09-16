@@ -12,7 +12,7 @@ Steps:
 - Clone the repository
 > git clone https://github.com/arunksingh16/docker
 - Create docker file 
-- Lets build docker image and tag it
+- Lets build docker image and tag it (Note: By default, main running process for Docker is the ENTRYPOINT and/or CMD at the end of the Dockerfile.)
 > docker build . -t microservice:v1
 - List images
 > docker images
